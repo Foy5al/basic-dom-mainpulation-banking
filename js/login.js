@@ -6,7 +6,7 @@ document.getElementById('subBtn').addEventListener('click', function () {
     let passField = document.getElementById('password');
     const pass = passField.value;
     //check validation 
-    if (emailAdd == 'abc@bap.com' && pass == 'secret') {
+    if (emailAdd == 'money@heist.com' && pass == 'professor') {
         window.location.href = "banking.html";
     }
     else {
