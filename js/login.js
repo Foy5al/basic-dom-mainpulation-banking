@@ -12,4 +12,12 @@ document.getElementById('subBtn').addEventListener('click', function () {
     else {
         alert('invalid user or password');
     }
-})
+});
+document.getElementById('access').addEventListener('click', function () {
+    const para = document.createElement('p');
+    const paraText = document.createTextNode("mail: money@heist.com || pass: professor");
+    para.appendChild(paraText);
+
+    const accessBtn = document.getElementById('acc-sec');
+    accessBtn.appendChild(para);
+});
