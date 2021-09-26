@@ -1,59 +1,55 @@
-//handle deposit button event
+//input field function
+function getInputValue(depositId) {
+    const inputField = document.getElementById(depositId);
+    const inputAmountText = inputField.value;
+    const inputAmountValue = parseFloat(inputAmountText);
+
+    //empty input box
+    inputField.value = '';
+    return inputAmountValue;
+}
+// summary of the money field function
+function updateTotalField(totalID, totalAmount) {
+    const total = document.getElementById(totalID);
+    const totalText = total.innerText;
+    const previousTotal = parseFloat(totalText);
+
+    total.innerText = totalAmount + previousTotal;
+    return total;
+}
+
+//Total Balance update fuction
+function totalBalance(amount, isadd) {
+    const balanceTotal = document.getElementById('balance-total');
+    const balanceTotalText = balanceTotal.innerText;
+    const previousBalanceTotal = parseFloat(balanceTotalText);
+    //if isadd == true then add the balance else isadd == false minus the balance
+    if (isadd == true) {
+        balanceTotal.innerText = previousBalanceTotal + amount;
+    }
+    else {
+        balanceTotal.innerText = previousBalanceTotal - amount;
+    }
+    return balanceTotal;
+}
+
+//-------------------handle deposit btn---------------------
 document.getElementById('deposit-btn').addEventListener('click', function () {
-    //get amount of new deposite
-    const depositInput = document.getElementById('deposit-input');
-    //convert deposit amount text to number
-    const depositAmount = parseFloat(depositInput.value);
 
-    //get total deposite amount 
-    const depositeTotal = document.getElementById('deposite-total');
-    //convert it from text to number
-    const previousDepositTxt = depositeTotal.innerText;
-    const previousDepositAmount = parseFloat(previousDepositTxt);
-
-    //add new deposit input to previous deposite
-    const newDepositTotal = previousDepositAmount + depositAmount;
-
-    //update the previous deposite value
-    depositeTotal.innerText = newDepositTotal;
-
-    //update Balance
-    const mainBalance = document.getElementById('balance-total');
-    const balancetxt = mainBalance.innerText;
-    const balance = parseFloat(balancetxt);
-
-    mainBalance.innerText = balance + newDepositTotal;
-
-
-    //clear input field of deposite
-    depositInput.value = '';
-    // inner text na dile update hobe na span er vitorer text karon oita input field na 
-
+    //get new deposite balance 
+    const previousDepositAmount = getInputValue('deposit-input');
+    // get current deposite balance and update with new Balance
+    updateTotalField('deposite-total', previousDepositAmount);
+    // get previous Total balance and update new Balance
+    totalBalance(previousDepositAmount, true);
 });
 
-//withdraw balance 
+//-------------------handle withdraw btn---------------------
 document.getElementById('withdraw-btn').addEventListener('click', function () {
-    //get the input withdraw amount and convert them into number
-    const withdraw = document.getElementById('withdraw-input');
-    //const withdrawTxt = withdraw.value;
-    const withdrawInput = parseFloat(withdraw.value);
-
-    //current amount get an convert to number
-    const currentWithdrawAmount = document.getElementById('withdraw-total');
-    const currentWithdrawAmountTxt = currentWithdrawAmount.innerText;
-    const withdrawAmountNum = parseFloat(currentWithdrawAmountTxt);
-
-    //add input withdraw amount with current amount
-    currentWithdrawAmount.innerText = withdrawAmountNum + withdrawInput;
-
-    //update balance 
-    const balance = document.getElementById('balance-total');
-    const balanceNum = parseFloat(balance.innerText);
-
-    balance.innerText = balanceNum - withdrawInput;
-
-    withdraw.value = '';
-    // const currentWithdrawAmount = document.getElementById('withdraw-total');
-
-
+    //get new withdraw balance 
+    const newWithdrawInput = getInputValue('withdraw-input');
+    //get current withdraw amount and add new withdraw balance
+    updateTotalField('withdraw-total', newWithdrawInput);
+    // get previous Total balance and update new Balance
+    totalBalance(newWithdrawInput, false);
 });
